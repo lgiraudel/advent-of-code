@@ -25,6 +25,6 @@ describe('Day 14', () => {
     })
 
     test('Puzzle 14.2', () => {
-        expect(processElementsDiff(sample, 40).toBe(2188189693529))
+        expect(processElementsDiff(sample, 40)).toBe(2188189693529)
     })
 })
