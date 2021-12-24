@@ -6,7 +6,49 @@ const importFile = (dirname, filename = 'input.txt') =>
 
 const unique = arr => [...new Set(arr)]
 
+const cache = (fn, cacheKey) => {
+    const cacheObj = {}
+    return (...args) => {
+        const key = cacheKey(...args)
+        cacheObj[key] = cacheObj[key] || fn(...args)
+        return cacheObj[key]
+    }
+}
+
+const _dichotomicSeach = (start, end, getValFn, comparisonFn) => {
+    while (start <= end) {
+        const mid = Math.floor((start + end) / 2)
+        const cmp = comparisonFn(getValFn(mid))
+        if (cmp < 0) {
+            end = mid - 1
+        } else if (cmp > 0) {
+            start = mid + 1
+        } else {
+            return mid
+        }
+    }
+}
+
+const dichotomicSeach = (range, comparisonFn) => {
+    range = unique(range)
+
+    const index = _dichotomicSeach(
+        0,
+        range.length - 1,
+        i => range[i],
+        comparisonFn
+    )
+    return range[index]
+}
+
+const dichotomicSearchInRange = (start, end, comparisonFn) => {
+    return _dichotomicSeach(start, end, v => v, comparisonFn)
+}
+
 module.exports = {
     importFile,
     unique,
+    cache,
+    dichotomicSeach,
+    dichotomicSearchInRange,
 }
