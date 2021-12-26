@@ -45,10 +45,15 @@ const dichotomicSearchInRange = (start, end, comparisonFn) => {
     return _dichotomicSeach(start, end, v => v, comparisonFn)
 }
 
+const intersection = (arr1, arr2) => arr1.filter(x => arr2.includes(x))
+const diff = (arr1, arr2) => arr1.filter(x => !arr2.includes(x))
+
 module.exports = {
     importFile,
     unique,
     cache,
     dichotomicSeach,
     dichotomicSearchInRange,
+    intersection,
+    diff,
 }
