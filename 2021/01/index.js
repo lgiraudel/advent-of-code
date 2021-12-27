@@ -1,26 +1,24 @@
-const { importFile } = require('../../helpers')
+const { importFile, sum } = require('../../helpers')
 
-const countIncreases = input => {
-    return input.map(Number).reduce((totalIncreases, depth, i, input) => {
+const countIncreases = input =>
+    sum(input.map(Number), (depth, i) => {
         if (i !== 0 && depth > input[i - 1]) {
-            totalIncreases++
+            return 1
         }
-        return totalIncreases
-    }, 0)
-}
+        return 0
+    })
 
-const countWindowIncreases = input => {
-    return input.map(Number).reduce((totalIncreases, _depth, i, input) => {
+const countWindowIncreases = input =>
+    sum(input.map(Number), (_depth, i) => {
         if (
             i > 2 &&
             input[i] + input[i - 1] + input[i - 2] >
                 input[i - 1] + input[i - 2] + input[i - 3]
         ) {
-            totalIncreases++
+            return 1
         }
-        return totalIncreases
-    }, 0)
-}
+        return 0
+    })
 
 const input = importFile(__dirname)
 console.log(countIncreases(input))

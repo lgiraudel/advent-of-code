@@ -1,4 +1,4 @@
-const { importFile, intersection, diff } = require('../../helpers')
+const { importFile, intersection, diff, sum } = require('../../helpers')
 
 const explodeLine = line =>
     line
@@ -10,12 +10,11 @@ const explodeLine = line =>
 const countDigits = input => {
     const lines = input.map(explodeLine)
 
-    return lines.reduce((total, [_left, right]) => {
-        return (
-            total +
+    return sum(
+        lines,
+        ([_left, right]) =>
             right.filter(word => [2, 3, 4, 7].includes(word.length)).length
-        )
-    }, 0)
+    )
 }
 
 /**
@@ -27,11 +26,8 @@ const present = (count, words) =>
         .split('')
         .filter(
             letter =>
-                words.reduce(
-                    (total, word) =>
-                        total + (word.indexOf(letter) !== -1 ? 1 : 0),
-                    0
-                ) === count
+                sum(words, word => (word.indexOf(letter) !== -1 ? 1 : 0)) ===
+                count
         )
 
 const uncryptedDigitsTable = {
@@ -123,11 +119,7 @@ const decypherLine = ([leftCryptedDigits, rightEncryptedDigits]) => {
     return uncryptRightDigits(rightEncryptedDigits, encryptionTable)
 }
 
-const sumDigits = input => {
-    return input.reduce((total, line) => {
-        return total + decypherLine(explodeLine(line))
-    }, 0)
-}
+const sumDigits = input => sum(input, line => decypherLine(explodeLine(line)))
 
 const input = importFile(__dirname)
 console.log(countDigits(input))

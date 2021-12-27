@@ -1,4 +1,9 @@
-const { importFile, cache, dichotomicSearchInRange } = require('../../helpers')
+const {
+    importFile,
+    cache,
+    dichotomicSearchInRange,
+    sum,
+} = require('../../helpers')
 
 const getOrderedPositions = input =>
     input[0]
@@ -7,7 +12,7 @@ const getOrderedPositions = input =>
         .sort((x, y) => (x > y ? 1 : -1))
 
 const getFuelToPosition = (values, position) =>
-    values.reduce((total, value) => total + Math.abs(value - position), 0)
+    sum(values, value => Math.abs(value - position))
 
 const fibonnaci = cache(
     max => (max === 0 ? 0 : max + fibonnaci(max - 1)),
@@ -15,10 +20,7 @@ const fibonnaci = cache(
 )
 
 const getFuelToPositionWithFibonacci = (values, position) =>
-    values.reduce(
-        (total, value) => total + fibonnaci(Math.abs(value - position)),
-        0
-    )
+    sum(values, value => fibonnaci(Math.abs(value - position)))
 
 const findBestFuel = (positions, getFuelToPositionFn) => {
     getFuelToPositionFn = cache(getFuelToPositionFn, (_values, value) => value)

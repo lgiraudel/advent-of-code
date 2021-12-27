@@ -1,4 +1,4 @@
-const { importFile } = require('../../helpers')
+const { importFile, sum } = require('../../helpers')
 
 const checkTable = table => {
     // check lines
@@ -69,13 +69,7 @@ const getFinalScore = input => {
         }
     }
 
-    return (
-        winningValue *
-        winningTable.reduce(
-            (sum, line) => sum + line.reduce((sum, val) => sum + val, 0),
-            0
-        )
-    )
+    return winningValue * sum(winningTable, line => sum(line, val => val))
 }
 
 const getLastFinalScore = input => {
@@ -109,13 +103,7 @@ const getLastFinalScore = input => {
         })
     }
 
-    return (
-        winningValue *
-        winningTable.reduce(
-            (sum, line) => sum + line.reduce((sum, val) => sum + val, 0),
-            0
-        )
-    )
+    return winningValue * sum(winningTable, line => sum(line, val => val))
 }
 const input = importFile(__dirname)
 console.log(getFinalScore(input))

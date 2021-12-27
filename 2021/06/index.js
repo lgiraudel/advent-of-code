@@ -1,4 +1,4 @@
-const { importFile } = require('../../helpers')
+const { importFile, sum } = require('../../helpers')
 
 const countLanternfish = (input, nbDays) => {
     let ages = input[0]
@@ -23,7 +23,7 @@ const countLanternfish = (input, nbDays) => {
         })
         ages = newAges
     }
-    return Object.values(ages).reduce((sum, age) => sum + age, 0)
+    return sum(Object.values(ages), age => age)
 }
 
 const input = importFile(__dirname)
