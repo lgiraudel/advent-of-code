@@ -69,7 +69,7 @@ const getFinalScore = input => {
         }
     }
 
-    return winningValue * sum(winningTable, line => sum(line, val => val))
+    return winningValue * sum(winningTable, line => sum(line))
 }
 
 const getLastFinalScore = input => {
@@ -103,7 +103,7 @@ const getLastFinalScore = input => {
         })
     }
 
-    return winningValue * sum(winningTable, line => sum(line, val => val))
+    return winningValue * sum(winningTable, line => sum(line))
 }
 const input = importFile(__dirname)
 console.log(getFinalScore(input))
