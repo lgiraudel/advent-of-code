@@ -48,7 +48,8 @@ const dichotomicSearchInRange = (start, end, comparisonFn) => {
 const intersection = (arr1, arr2) => arr1.filter(x => arr2.includes(x))
 const diff = (arr1, arr2) => arr1.filter(x => !arr2.includes(x))
 
-const sum = (tab, fn) => tab.reduce((sum, el, i) => sum + fn(el, i), 0)
+const sum = (tab, fn = val => val) =>
+    tab.reduce((sum, el, i) => sum + fn(el, i), 0)
 
 const _default = (el, defaultValue) => (el !== undefined ? el : defaultValue)
 

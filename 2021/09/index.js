@@ -3,10 +3,10 @@ const { sum, importFile, unique, _default } = require('../../helpers')
 const getMap = input => input.map(line => line.split('').map(Number))
 
 const isLowerPoint = (map, [i, j]) =>
-    map[i][j] <= _default(map[i][j - 1], 10) &&
-    map[i][j] <= _default(map[i][j + 1], 10) &&
-    map[i][j] <= _default(map[i - 1]?.[j], 10) &&
-    map[i][j] <= _default(map[i + 1]?.[j], 10)
+    map[i][j] <= (map[i][j - 1] ?? 10) &&
+    map[i][j] <= (map[i][j + 1] ?? 10) &&
+    map[i][j] <= (map[i - 1]?.[j] ?? 10) &&
+    map[i][j] <= (map[i + 1]?.[j] ?? 10)
 
 const sumRiskLevels = input => {
     const map = getMap(input)
@@ -44,7 +44,7 @@ const multiplyBiggestBasins = input => {
             }
         }
     }
-    const bigestBasins = basinSizes.sort((a, b) => (a < b ? 1 : -1)).slice(0, 3)
+    const bigestBasins = basinSizes.sort((a, b) => b - a).slice(0, 3)
     return bigestBasins.reduce((total, val) => total * val, 1)
 }
 

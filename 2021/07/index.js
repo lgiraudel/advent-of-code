@@ -1,62 +1,39 @@
-const {
-    importFile,
-    cache,
-    dichotomicSearchInRange,
-    sum,
-} = require('../../helpers')
+const { importFile, sum } = require('../../helpers')
 
 const getOrderedPositions = input =>
     input[0]
         .split(',')
         .map(Number)
-        .sort((x, y) => (x > y ? 1 : -1))
+        .sort((x, y) => x - y)
 
 const getFuelToPosition = (values, position) =>
     sum(values, value => Math.abs(value - position))
 
-const fibonnaci = cache(
-    max => (max === 0 ? 0 : max + fibonnaci(max - 1)),
-    val => val
-)
+const triangularNumber = value => (value * (value + 1)) / 2
 
 const getFuelToPositionWithFibonacci = (values, position) =>
-    sum(values, value => fibonnaci(Math.abs(value - position)))
-
-const findBestFuel = (positions, getFuelToPositionFn) => {
-    getFuelToPositionFn = cache(getFuelToPositionFn, (_values, value) => value)
-    let startPos = positions[0]
-    let endPos = positions[positions.length - 1]
-
-    const val = dichotomicSearchInRange(startPos, endPos, value => {
-        const beforePosFuel = getFuelToPositionFn(positions, value - 1)
-        const posFuel = getFuelToPositionFn(positions, value)
-        const afterPosFuel = getFuelToPositionFn(positions, value + 1)
-        if (beforePosFuel < posFuel && posFuel < afterPosFuel) {
-            return -1
-        } else if (beforePosFuel > posFuel && posFuel > afterPosFuel) {
-            return 1
-        } else {
-            return 0
-        }
-    })
-    return getFuelToPositionFn(positions, val)
-}
+    sum(values, value => triangularNumber(Math.abs(value - position)))
 
 const getFuelAmount = input => {
     const positions = getOrderedPositions(input)
+    const median = positions[positions.length / 2]
 
-    return findBestFuel(positions, getFuelToPosition)
+    return getFuelToPosition(positions, median)
 }
 
 const getFuelAmountV2 = input => {
     const positions = getOrderedPositions(input)
+    const average = sum(positions) / positions.length
 
-    return findBestFuel(positions, getFuelToPositionWithFibonacci)
+    return Math.min(
+        getFuelToPositionWithFibonacci(positions, Math.floor(average)),
+        getFuelToPositionWithFibonacci(positions, Math.ceil(average))
+    )
 }
 
-// const input = importFile(__dirname)
-// console.log(getFuelAmount(input))
-// console.log(getFuelAmountV2(input))
+const input = importFile(__dirname)
+console.log(getFuelAmount(input))
+console.log(getFuelAmountV2(input))
 
 module.exports = {
     getFuelAmount,
