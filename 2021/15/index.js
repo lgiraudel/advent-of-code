@@ -55,7 +55,6 @@ const getNeighbors = ({ x, y }, map, mapSize) => {
 const getAllPaths = (map, start, end, mapSize) => {
     const frontier = []
     const costSoFar = { [start.key]: 0 }
-    const cameFrom = { [start.key]: null }
 
     frontier.push(start)
 
@@ -63,7 +62,7 @@ const getAllPaths = (map, start, end, mapSize) => {
         const current = frontier.shift()
 
         if (current.key === end.key) {
-            break
+            continue
         }
 
         for (let next of getNeighbors(current, map, mapSize)) {
@@ -72,27 +71,11 @@ const getAllPaths = (map, start, end, mapSize) => {
             if (!costSoFar[next.key] || newCost < costSoFar[next.key]) {
                 costSoFar[next.key] = newCost
                 frontier.push(next)
-                cameFrom[next.key] = current
             }
         }
     }
 
-    return {
-        costs: costSoFar,
-        cameFrom,
-    }
-}
-
-const getBestPath = (paths, start, end) => {
-    const path = []
-    let current = end
-
-    while (current.key !== start.key) {
-        path.push(current)
-        current = paths[current.key]
-    }
-
-    return path
+    return costSoFar[end.key]
 }
 
 const getLowerTotalRisk = (input, mapSize = 1) => {
@@ -108,16 +91,12 @@ const getLowerTotalRisk = (input, mapSize = 1) => {
         cost: cost(width - 1, height - 1, map, mapSize),
     }
 
-    const { cameFrom: paths, costs } = getAllPaths(map, start, end, mapSize)
-    const bestPath = getBestPath(paths, start, end)
-    const bestCost = bestPath.reduce((cost, cur) => cost + cur.cost, 0)
-    console.log('bestCost:', bestCost, 'cost[end]:', costs[end.key])
-    return bestCost
+    return getAllPaths(map, start, end, mapSize)
 }
 
 const input = importFile(__dirname)
 console.log(getLowerTotalRisk(input))
-// console.log(getLowerTotalRisk(input, 5))
+console.log(getLowerTotalRisk(input, 5))
 
 module.exports = {
     cost,
