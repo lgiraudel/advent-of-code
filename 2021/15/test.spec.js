@@ -1,4 +1,4 @@
-const { getLowerTotalRisk } = require('.')
+const { getLowerTotalRisk, getLowerTotalRiskV2, cost } = require('.')
 
 const sample = `1163751742
 1381373672
@@ -68,6 +68,8 @@ describe('Day 15', () => {
     })
 
     test('Puzzle 15.2', () => {
+        const map = sample.map(line => line.split('').map(Number))
         expect(getLowerTotalRisk(sample2)).toBe(315)
+        expect(getLowerTotalRisk(sample, 5)).toBe(315)
     })
 })
