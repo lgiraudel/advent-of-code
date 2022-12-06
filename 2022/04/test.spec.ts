@@ -7,7 +7,7 @@ const sample = `2-4,6-8
 6-6,4-6
 2-6,4-8`.split('\n');
 
-describe('Day 02', () => {
+describe('Day 04', () => {
     test('Puzzle 4.1', () => {
         expect(countPairsWithOneRangeInTheOther(sample)).toBe(2)
     })

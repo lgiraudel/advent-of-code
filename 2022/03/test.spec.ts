@@ -7,7 +7,7 @@ wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
 ttgJtRGJQctTZtZT
 CrZsJsPPZsGzwwsLwLmpwMDw`.split('\n');
 
-describe('Day 02', () => {
+describe('Day 03', () => {
     test('Puzzle 3.1', () => {
         expect(getWronglyLoadedItemsPrioritySum(sample)).toBe(157)
     })
