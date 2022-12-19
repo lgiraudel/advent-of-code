@@ -26,12 +26,24 @@ const createGrid = <T>(rows: string[], mapper: Mapper<T> = identity as Mapper<T>
 
 const column = <T>(grid: Grid<T>, index: number) => grid.map(row => row[index])
 
+function isCallable<T>(maybeFunc: T | ((ri: number, ci: number) => T)): maybeFunc is (ri: number, ci: number) => T {
+    return typeof maybeFunc === 'function';
+}
+
+const initGrid = <T>(width: number, height: number, value: T | ((ci: number, ri: number) => T)): Grid<T> =>
+    Array.from({ length: height }, (_, ri) =>
+        Array.from({ length: width }, (_, ci) => 
+            isCallable<T>(value) ? value(ci, ri) : value
+        )
+    )
+
 export const grid = {
     create: createGrid,
     forEach,
     map,
     flatMap,
     column,
+    init: initGrid,
 }
 
 export default {
