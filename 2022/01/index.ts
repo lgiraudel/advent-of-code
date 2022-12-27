@@ -18,10 +18,5 @@ const getMaxCaloriesOfNElves = (input, n) => {
     return result.max.reduce((sum, cur) => sum + cur, 0)
 }
 
-const getMaxCalories = input => getMaxCaloriesOfNElves(input, 1)
-const getMaxCaloriesOf3Elves = input => getMaxCaloriesOfNElves(input, 3)
-
-module.exports = {
-    getMaxCalories,
-    getMaxCaloriesOf3Elves
-}
+export const getMaxCalories = input => getMaxCaloriesOfNElves(input, 1)
+export const getMaxCaloriesOf3Elves = input => getMaxCaloriesOfNElves(input, 3)

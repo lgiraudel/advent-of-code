@@ -1,4 +1,4 @@
-const { getMaxCalories, getMaxCaloriesOf3Elves } = require('.')
+import { getMaxCalories, getMaxCaloriesOf3Elves } from '.';
 
 const sample = `1000
 2000

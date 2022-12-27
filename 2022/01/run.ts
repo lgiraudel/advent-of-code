@@ -1,6 +1,7 @@
 const { getMaxCalories, getMaxCaloriesOf3Elves } = require(".");
-const { importFile } = require("../../helpers");
+import $ from '../../helpers/index';
 
-const input = importFile(__dirname)
+const input = $.file.importFile(__dirname)
+
 console.log(getMaxCalories(input))
 console.log(getMaxCaloriesOf3Elves(input))
