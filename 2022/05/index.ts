@@ -84,8 +84,8 @@ export function getFinalWordV2(input: string[]): string {
     moveLines.forEach(moveLine => {
         const { number, from, to } = parseMoveLine(moveLine)
 
-        const removedItems = initialCrates[from].splice(0 - number)
-        initialCrates[to].push(...removedItems)
+        const removedItems = initialCrates[from - 1].splice(0 - number)
+        initialCrates[to - 1].push(...removedItems)
     })
 
     return processFinalWord(initialCrates)

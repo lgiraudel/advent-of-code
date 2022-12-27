@@ -1,7 +1,7 @@
 import { getFinalWord, getFinalWordV2 } from ".";
+import $ from '../../helpers/index';
 
-const { importFile } = require("../../helpers");
+const input = $.file.importFile(__dirname)
 
-const input = importFile(__dirname)
 console.log(getFinalWord(input))
 console.log(getFinalWordV2(input))

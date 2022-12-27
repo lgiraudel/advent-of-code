@@ -1,4 +1,6 @@
-const unique = require('../../helpers').unique
+import $ from '../../helpers/index'
+
+const unique = $.array.unique
 
 function getStartOfMarkerPosition(input: string, markerSize: number): number {
     const chars = input.split('')

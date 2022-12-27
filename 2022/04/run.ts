@@ -1,7 +1,7 @@
 import { countOverlapingSections, countPairsWithOneRangeInTheOther } from ".";
+import $ from '../../helpers/index';
 
-const { importFile } = require("../../helpers");
+const input = $.file.importFile(__dirname)
 
-const input = importFile(__dirname)
 console.log(countPairsWithOneRangeInTheOther(input))
 console.log(countOverlapingSections(input))

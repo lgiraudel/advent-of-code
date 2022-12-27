@@ -37,15 +37,11 @@ const initGrid = <T>(width: number, height: number, value: T | ((ci: number, ri:
         )
     )
 
-export const grid = {
+export default {
     create: createGrid,
     forEach,
     map,
     flatMap,
     column,
     init: initGrid,
-}
-
-export default {
-    grid
 }

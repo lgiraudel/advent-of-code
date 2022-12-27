@@ -1,6 +1,7 @@
 import { getTotalScore, getTotalScoreV2 } from ".";
-const { importFile } = require("../../helpers");
+import $ from '../../helpers/index';
 
-const input = importFile(__dirname)
+const input = $.file.importFile(__dirname)
+
 console.log(getTotalScore(input))
 console.log(getTotalScoreV2(input))

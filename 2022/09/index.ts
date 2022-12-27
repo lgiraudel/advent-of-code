@@ -1,4 +1,5 @@
-import $, { Grid } from '../../helpers-ts';
+import { Grid } from '../../helpers/grid';
+import $ from '../../helpers/index';
 
 enum Direction {
     UP = 'U',

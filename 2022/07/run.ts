@@ -1,8 +1,7 @@
 import { findSmallestDirectoryToFreeEnoughSpace, getSumOfDirectoriesSize } from ".";
+import $ from '../../helpers/index';
 
-const { importFile } = require("../../helpers");
-
-const input = importFile(__dirname)
+const input = $.file.importFile(__dirname)
 
 console.log(getSumOfDirectoriesSize(input))
 console.log(findSmallestDirectoryToFreeEnoughSpace(input))

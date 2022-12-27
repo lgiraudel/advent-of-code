@@ -1,8 +1,7 @@
 import { puzzle1, puzzle2 } from ".";
+import $ from '../../helpers/index';
 
-const { importFile } = require("../../helpers");
-
-const input = importFile(__dirname)
+const input = $.file.importFile(__dirname)
 
 console.log(puzzle1(input))
 console.log(puzzle2(input))
