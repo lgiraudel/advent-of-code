@@ -1,6 +1,41 @@
-import { Graph, Node } from "./graph"
+import { Graph, Node } from "./graph";
 
 export type Grid<T> = T[][]
+export type Position = {
+    r?: number;
+    c?: number;
+}
+export class Grid2<T> {
+    _cells: T[][];
+
+    height() {
+        return this._cells.length
+    }
+
+    width() {
+        return this._cells[0].length
+    }
+
+    get(pos: Position) {
+        return this._cells[pos.r][pos.c]
+    }
+
+    set(pos: Position, T) {
+        this._cells[pos.r][pos.c] = T
+    }
+
+    bottom(pos: Position) {
+        return this._cells[pos.r + 1][pos.c]
+    }
+
+    bottomLeft(pos: Position) {
+        return this._cells[pos.r + 1][pos.c - 1]
+    }
+
+    bottomRight(pos: Position) {
+        return this._cells[pos.r + 1][pos.c + 1]
+    }
+}
 
 const loop = <T, U>(handler: 'forEach' | 'map' | 'flatMap' | 'find') =>
     (grid: Grid<T>, callback: (item: T, ri: number, ci: number) => U) => {
@@ -57,8 +92,26 @@ const init = <T>(width: number, height: number, value: T | ((ci: number, ri: num
         )
     )
 
+const init2 = <T>(width: number, height: number, value: T | ((ci: number, ri: number) => T)): Grid2<T> => {
+    const cells = Array.from({ length: height }, (_, ri) =>
+        Array.from({ length: width }, (_, ci) => 
+            isCallable<T>(value) ? value(ci, ri) : value
+        )
+    )
+    const grid = new Grid2<T>()
+    grid._cells = cells
+    return grid
+}
+
 const print = <T>(grid: Grid<T>, f: (item: T) => string): void => {
     const output = grid.map(line =>
+        line.map(f).join('')
+    ).join('\n')
+    console.log(output)
+}
+
+const print2 = <T>(grid: Grid2<T>, f: (item: T) => string): void => {
+    const output = grid._cells.map(line =>
         line.map(f).join('')
     ).join('\n')
     console.log(output)
@@ -131,7 +184,9 @@ export default {
     flatMap,
     column,
     init,
+    init2,
     print,
+    print2,
     find,
     reduce,
     getWidth,
